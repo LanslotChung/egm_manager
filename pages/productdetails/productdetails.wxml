@@ -1,0 +1,167 @@
+<!--pages/productdetails/productdetails.wxml-->
+<view class="box-0">
+  <view class="box-0-0">
+    <picker class="box-0-0-0" mode="multiSelector" value="{{multiIndex}}" range="{{multiArray}}" range-key="name"  bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" bindcancel="bindMultiPickerColumnCancel">
+      <view style="display:flex;width:570rpx;">
+        <view class="box-0-0-0-0">
+          <view>{{multiArray[0][multiIndex[0]].name}}</view>
+          <view class="iconxiala iconfont"></view>
+        </view>
+        <view class="box-0-0-0-1">
+          <view>{{multiArray[1][multiIndex[1]].name}}</view>
+          <view class="iconxiala iconfont"></view>
+        </view>
+      </view>
+    </picker>
+  </view>
+  <view class="box-0-1" bindtap="queryFn">查询</view>
+</view>
+
+<view class="box-2" wx:if="{{index != 4}}">
+  <view style="{{timePhasing == 0?'color:#02A7F0;border-bottom:2rpx solid #02A7F0;':''}}" data-index="0" bindtap="timePhasingChange">近一日</view>
+  <view style="{{timePhasing == 1?'color:#02A7F0;border-bottom:2rpx solid #02A7F0;':''}}margin:0 80rpx" data-index="1" bindtap="timePhasingChange">近七日</view>
+  <view style="{{timePhasing == 2?'color:#02A7F0;border-bottom:2rpx solid #02A7F0;':''}}" data-index="2" bindtap="timePhasingChange">近三十日</view>
+</view>
+
+<view class="box-2" wx:if="{{index == 4}}">
+  <view style="{{rankingType == 0?'color:#02A7F0;border-bottom:2rpx solid #02A7F0;':''}}" data-index="0" bindtap="rankingTypeChange">访客排名</view>
+  <view style="{{rankingType == 1?'color:#02A7F0;border-bottom:2rpx solid #02A7F0;':''}}" data-index="1" bindtap="rankingTypeChange">客户排名</view>
+  <view style="{{rankingType == 2?'color:#02A7F0;border-bottom:2rpx solid #02A7F0;':''}}" data-index="2" bindtap="rankingTypeChange">签约排名</view>
+  <view style="{{rankingType == 3?'color:#02A7F0;border-bottom:2rpx solid #02A7F0;':''}}" data-index="3" bindtap="rankingTypeChange">成交排名</view>
+</view>
+
+<view class="box-2" wx:if="{{index == 4}}">
+  <view style="{{timePhasing == 0?'color:#02A7F0;border-bottom:2rpx solid #02A7F0;':''}}" data-index="0" bindtap="timePhasingChange">近一日</view>
+  <view style="{{timePhasing == 1?'color:#02A7F0;border-bottom:2rpx solid #02A7F0;':''}}" data-index="1" bindtap="timePhasingChange">近七日</view>
+  <view style="{{timePhasing == 2?'color:#02A7F0;border-bottom:2rpx solid #02A7F0;':''}}" data-index="2" bindtap="timePhasingChange">近三十日</view>
+  <view style="{{timePhasing == 3?'color:#02A7F0;border-bottom:2rpx solid #02A7F0;':''}}" data-index="3" bindtap="timePhasingChange">总计</view>
+</view>
+
+<view class="box-3" hidden="{{index != 0}}">
+  <view class="box-3-0">
+    <view>户型</view>
+    <view style="margin:0 80rpx">访问次数</view>
+    <view>浏览时长</view>
+  </view>
+  <view class="box-3-1" wx:for="{{houseTypeData}}" wx:key="index">
+    <view class="box-3-1-0">{{item.house_type}}</view>
+    <view class="box-3-1-1"><text>{{item._num}}</text>次</view>
+    <view class="box-3-1-2"><text>{{item._browsLength}}</text>秒</view>
+  </view>
+  <view class="box-3-2" style="height:{{houseTypeHeight}}rpx">
+    <ec-canvas id="mychart-dom-bar-0" canvas-id="mychart-bar-0" ec="{{ ec-0 }}"></ec-canvas>
+  </view>
+  <view class="box-3-2" style="height:{{houseTypeHeight}}rpx">
+    <ec-canvas id="mychart-dom-bar-1" canvas-id="mychart-bar-1" ec="{{ ec-1 }}"></ec-canvas>
+  </view>
+</view>
+<view class="box-4" hidden="{{index != 1}}">
+  <view class="box-3-0">
+    <view>类型</view>
+    <view style="margin:0 80rpx"></view>
+    <view>统计</view>
+  </view>
+  <view class="box-3-1">
+    <view class="box-3-1-0">新增访客数</view>
+    <view class="box-3-1-1"></view>
+    <view class="box-3-1-2"><text>{{clientData.addVisitorNum}}</text>人</view>
+  </view>
+  <view class="box-3-1">
+    <view class="box-3-1-0">新增客户数</view>
+    <view class="box-3-1-1"></view>
+    <view class="box-3-1-2"><text>{{clientData.addClientNum}}</text>人</view>
+  </view>
+  <view class="box-3-1">
+    <view class="box-3-1-0">新增签约数</view>
+    <view class="box-3-1-1"></view>
+    <view class="box-3-1-2"><text>{{clientData.addSignNum}}</text>人</view>
+  </view>
+  <view class="box-3-1">
+    <view class="box-3-1-0">新增购买数</view>
+    <view class="box-3-1-1"></view>
+    <view class="box-3-1-2"><text>{{clientData.addBuyNum}}</text>人</view>
+  </view>
+  
+  <view class="box-4-0">总计</view>
+  <view class="box-3-1">
+    <view class="box-3-1-0">访客总数</view>
+    <view class="box-3-1-1"></view>
+    <view class="box-3-1-2"><text>{{clientData.visitorNum}}</text>人</view>
+  </view>
+  <view class="box-3-1">
+    <view class="box-3-1-0">客户总数</view>
+    <view class="box-3-1-1"></view>
+    <view class="box-3-1-2"><text>{{clientData.clientNum}}</text>人</view>
+  </view>
+  <view class="box-3-1">
+    <view class="box-3-1-0">签约总数</view>
+    <view class="box-3-1-1"></view>
+    <view class="box-3-1-2"><text>{{clientData.signNum}}</text>人</view>
+  </view>
+  <view class="box-3-1">
+    <view class="box-3-1-0">购买总数</view>
+    <view class="box-3-1-1"></view>
+    <view class="box-3-1-2"><text>{{clientData.buyNum}}</text>人</view>
+  </view>
+</view>
+<view class="box-5" hidden="{{index != 2}}">
+  <view class="box-3-0">
+    <view>置业顾问</view>
+    <view style="margin:0 80rpx">回访次数</view>
+    <view>逾期次数</view>
+  </view>
+  <view class="box-3-1" wx:for="{{returnVisitData}}" wx:key="index">
+    <view class="box-3-1-0">{{item.name}}</view>
+    <view class="box-3-1-1"><text>{{item.returnVisitNum}}</text>次</view>
+    <view class="box-3-1-2"><text>{{item.overdueNum}}</text>次</view>
+  </view>
+
+  <view class="box-3-2" style="height:{{returnVisiteHeight}}rpx">
+    <ec-canvas id="mychart-dom-bar-2" canvas-id="mychart-bar-2" ec="{{ ec-2 }}"></ec-canvas>
+  </view>
+  <view class="box-3-2" style="height:{{returnVisiteHeight}}rpx">
+    <ec-canvas id="mychart-dom-bar-3" canvas-id="mychart-bar-3" ec="{{ ec-3 }}"></ec-canvas>
+  </view>
+</view>
+<view class="box-6" hidden="{{index != 3}}">
+  <view class="box-3-0">
+    <view>置业顾问</view>
+    <view style="margin:0 80rpx">分享次数</view>
+    <view>拓客次数</view>
+  </view>
+  <view class="box-3-1" wx:for="{{shareData}}" wx:key="index">
+    <view class="box-3-1-0">{{item.name}}</view>
+    <view class="box-3-1-1"><text>{{item.shareNum}}</text>次</view>
+    <view class="box-3-1-2"><text>{{item.talkNum}}</text>次</view>
+  </view>
+
+  <view class="box-3-2" style="height:{{shareHeight}}rpx" hidden="{{shareData.length == 1}}">
+    <ec-canvas id="mychart-dom-bar-4" canvas-id="mychart-bar-4" ec="{{ ec-4 }}"></ec-canvas>
+  </view>
+  <view class="box-3-2" style="height:{{shareHeight}}rpx" hidden="{{shareData.length == 1}}">
+    <ec-canvas id="mychart-dom-bar-5" canvas-id="mychart-bar-5" ec="{{ ec-5 }}"></ec-canvas>
+  </view>
+</view>
+<view class="box-7" hidden="{{index != 4}}">
+  <view class="box-3-1" wx:for="{{rankingData}}" wx:key="index">
+    <view class="box-3-1-0">{{item.name}}</view>
+    <view class="box-3-1-1"></view>
+    <view class="box-3-1-2" wx:if="{{rankingType==0}}"><text>{{item.visitorNum}}</text>人</view>
+    <view class="box-3-1-2" wx:if="{{rankingType==1}}"><text>{{item.clientNum}}</text>人</view>
+    <view class="box-3-1-2" wx:if="{{rankingType==2}}"><text>{{item.signNum}}</text>人</view>
+    <view class="box-3-1-2" wx:if="{{rankingType==3}}"><text>{{item.buyNum}}</text>人</view>
+  </view>
+
+  <view class="box-3-2" style="height:{{rankingHeight}}rpx" hidden="{{rankingData.length == 1}}">
+    <ec-canvas id="mychart-dom-bar-6" canvas-id="mychart-bar-6" ec="{{ ec-6 }}"></ec-canvas>
+  </view>
+</view>
+
+<view style="height:120rpx"></view>
+<view class="box-1">
+  <view data-index="0" style="color:{{index == 0? '#ff0000':''}}" bindtap="indexChange">户型</view>
+  <view data-index="1" style="color:{{index == 1? '#ff0000':''}}" bindtap="indexChange">客户</view>
+  <view data-index="2" style="color:{{index == 2? '#ff0000':''}}" bindtap="indexChange">回访</view>
+  <view data-index="3" style="color:{{index == 3? '#ff0000':''}}" bindtap="indexChange">分享</view>
+  <view data-index="4" style="color:{{index == 4? '#ff0000':''}}" bindtap="indexChange">排名</view>
+</view>

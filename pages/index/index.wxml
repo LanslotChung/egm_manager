@@ -1,0 +1,58 @@
+<!--index.wxml-->
+<view class="loading" wx:if="{{loading}}">
+  <image mode="aspectFit" src="../../imgs/logo.png"></image>
+</view>
+
+
+<view class="box-0">
+  <view class="box-0-0">
+    <image src="{{data.mainPic}}"></image>
+  </view>
+  <view class="box-0-1">
+    <view class="box-0-1-0">
+      <image src="{{data.headPic}}"></image>
+    </view>
+    <view class="box-0-1-1">{{data.userName}}</view>
+    <view class="box-0-1-2">{{data.roleName}}</view>
+  </view>
+</view>
+
+<view class="box-1">
+  <view class="box-1-0">产品列表</view>
+</view>
+<view class="box-2">
+  <view class="box-2-0">
+    <block wx:for="{{data.productList}}" wx:key="index">
+      <view class="box-2-0-0" bindtap="goProductdetails" data-index="{{index}}">
+        <view class="box-2-0-0-0">
+          <view class="box-2-0-0-0-0"><image src="{{item.mainPic}}"></image></view>
+          <!-- <view class="box-2-0-0-0-1">
+            <view class="box-2-0-0-0-1-0">项目详情</view>
+          </view> -->
+        </view>
+        <view class="box-2-0-0-1">
+          <view class="box-2-0-0-1-0"><image src="{{item.icon}}"></image></view>
+          <view class="box-2-0-0-1-1">
+            <view class="box-2-0-0-1-1-0">{{item.productName}}</view>
+            <view class="box-2-0-0-1-1-1">{{item.address}}</view>
+            <!-- <view class="box-2-0-0-1-1-1" style="display:none">
+              <view class="box-2-0-0-1-1-1-0">普通住宅</view>
+              <view class="box-2-0-0-1-1-1-0">配置完善</view>
+              <view class="box-2-0-0-1-1-1-0">商业综合体</view>
+            </view> -->
+          </view>
+          <!-- <view class="box-2-0-0-1-2">
+            <view class="box-2-0-0-1-2-0">
+              <view class="iconfont iconloc-s"></view>
+              <view>{{item.address}}</view>
+            </view>
+            <view class="box-2-0-0-1-2-1">
+              <view class="iconfont iconliulan"></view>
+              <view>浏览：{{indexInfo.productObj.visitorNum}}次</view>
+            </view>
+          </view> -->
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
